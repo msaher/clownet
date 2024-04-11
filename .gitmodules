@@ -1,3 +1,6 @@
 [submodule "pytorch-coviar"]
 	path = pytorch-coviar
 	url = https://github.com/chaoyuaw/pytorch-coviar
+[submodule "mobileformer"]
+	path = mobileformer
+	url = https://github.com/msaher/mobileformer

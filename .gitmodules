@@ -1,0 +1,3 @@
+[submodule "pytorch-coviar"]
+	path = pytorch-coviar
+	url = https://github.com/chaoyuaw/pytorch-coviar

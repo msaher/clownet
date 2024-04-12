@@ -5,4 +5,4 @@ pip install timm
 
 
 # get the coviar data loader
-cd data pytorch-coviar/data_loader/ && ./install.sh
+cd data coviar/data_loader/ && ./install.sh

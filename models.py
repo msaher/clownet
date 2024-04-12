@@ -6,8 +6,8 @@ import torch
 import numpy as np
 from mobileformer.mobile_former import mobile_former_26m
 import torchvision
-from coviar.transforms import GroupRandomHorizontalFlip
-from coviar.transforms import GroupMultiScaleCrop
+from pycoviar.transforms import GroupRandomHorizontalFlip
+from pycoviar.transforms import GroupMultiScaleCrop
 
 # loading the mobile former pretrained net for embedding images
 mobile = mobile_former_26m(pretrained=False)

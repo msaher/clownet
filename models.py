@@ -12,7 +12,7 @@ from pycoviar.transforms import GroupMultiScaleCrop
 # loading the mobile former pretrained net for embedding images
 mobile = mobile_former_26m(pretrained=False)
 
-state = torch.load("./mobileformer/mobile-former-26m.pth.tar", map_location=torch.device('cuda'))['state_dict']
+state = torch.load("./mobile-former-26m.pth.tar", map_location=torch.device('cuda'))['state_dict']
 
 mobile.load_state_dict(state)
 mobile.to(torch.device('cuda'))

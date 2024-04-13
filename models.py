@@ -31,13 +31,13 @@ class Clownet(nn.Module):
         self._representation = representation
         self.num_segments = num_segments
 
-        print(("""
-Initializing model:
-    base model:         {}.
-    input_representation:     {}.
-    num_class:          {}.
-    num_segments:       {}.
-        """.format(base_model, self._representation, num_class, self.num_segments)))
+#         print(("""
+# Initializing model:
+#     base model:         {}.
+#     input_representation:     {}.
+#     num_class:          {}.
+#     num_segments:       {}.
+#         """.format(base_model, self._representation, num_class, self.num_segments)))
 
         self._prepare_base_model(base_model)
         self._prepare_tsn(num_class)
@@ -90,7 +90,7 @@ Initializing model:
         else:
             scales = [1, .875, .75, .66]
 
-        print('Augmentation scales:', scales)
+        # print('Augmentation scales:', scales)
         return torchvision.transforms.Compose(
             [GroupMultiScaleCrop(self._input_size, scales),
              GroupRandomHorizontalFlip(is_mv=(self._representation == 'mv'))])

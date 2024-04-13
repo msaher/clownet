@@ -59,7 +59,7 @@ def main(d: dict):
 
     model = Clownet(num_class, args.num_segments, args.representation,
                   base_model=args.arch)
-    # print(model)
+
     model.to(torch.device('cuda'))
 
     train_loader = torch.utils.data.DataLoader(
@@ -166,15 +166,19 @@ def train(train_loader, model, criterion, optimizer, epoch, cur_lr, args):
         target_var = torch.autograd.Variable(target)
 
         output = model(input_var)
+
         output = output.view((-1, args.num_segments) + output.size()[1:])
         output = torch.mean(output, dim=1)
 
         loss = criterion(output, target_var)
 
         prec1, prec5 = accuracy(output.data, target, topk=(1, 5))
-        losses.update(loss.data[0], input.size(0))
-        top1.update(prec1[0], input.size(0))
-        top5.update(prec5[0], input.size(0))
+
+
+        losses.update(loss.data.item(), input.size(0))
+
+        top1.update(prec1.item(), input.size(0))
+        top5.update(prec5.item(), input.size(0))
 
         optimizer.zero_grad()
 
@@ -223,9 +227,9 @@ def validate(val_loader, model, criterion, args):
 
         prec1, prec5 = accuracy(output.data, target, topk=(1, 5))
 
-        losses.update(loss.data[0], input.size(0))
-        top1.update(prec1[0], input.size(0))
-        top5.update(prec5[0], input.size(0))
+        losses.update(loss.data.item(), input.size(0))
+        top1.update(prec1.item(), input.size(0))
+        top5.update(prec5.item(), input.size(0))
 
         batch_time.update(time.time() - end)
         end = time.time()

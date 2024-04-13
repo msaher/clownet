@@ -50,9 +50,8 @@ class Clownet(nn.Module):
         feature_dim: int = self.base_model.classifier.classifier[1].in_features
         self.fc_final = nn.Linear(feature_dim, num_class)
 
-        # mv has two channels so we use 2d
         if self._representation == 'mv':
-            self.data_bn = nn.BatchNorm2d(2)
+            self.data_bn = nn.BatchNorm2d(3) # changed this 2 --> 3
         if self._representation == 'residual':
             self.data_bn = nn.BatchNorm2d(3)
 

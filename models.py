@@ -68,7 +68,11 @@ class Clownet(nn.Module):
             raise ValueError('Unknown base model: {}'.format(base_model))
 
     def forward(self, input):
+        # saher: this merges the batch_size with segment number
+        # the result is
+        # (batch_size*num_of_segments, channel, width, height)
         input = input.view((-1, ) + input.size()[-3:])
+
         if self._representation in ['mv', 'residual']:
             input = self.data_bn(input)
 

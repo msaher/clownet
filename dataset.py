@@ -183,7 +183,7 @@ class CoviarDataSet(data.Dataset):
 
         # add new channel to mv
         if self._representation == "mv":
-            zero_channel = np.zeros((1, 1, 224, 224))
+            zero_channel = np.zeros((self._num_segments, 1, 224, 224))
             frames = np.concatenate((frames, zero_channel), axis=1)
 
 

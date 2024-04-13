@@ -60,6 +60,7 @@ def main(d: dict):
     model = Clownet(num_class, args.num_segments, args.representation,
                   base_model=args.arch)
     # print(model)
+    model.to(torch.device('cuda'))
 
     train_loader = torch.utils.data.DataLoader(
         CoviarDataSet(
@@ -117,6 +118,7 @@ def main(d: dict):
         eps=0.001)
 
     criterion = torch.nn.CrossEntropyLoss().cuda()
+
     # criterion = torch.nn.CrossEntropyLoss()
 
     for epoch in range(args.epochs):
@@ -154,6 +156,8 @@ def train(train_loader, model, criterion, optimizer, epoch, cur_lr, args):
     end = time.time()
 
     for i, (input, target) in enumerate(train_loader):
+        input = input.to('cuda')
+        target = target.to('cuda')
 
         data_time.update(time.time() - end)
 
@@ -205,7 +209,10 @@ def validate(val_loader, model, criterion, args):
 
     end = time.time()
     for i, (input, target) in enumerate(val_loader):
-        target = target.cuda(non_blocking=True)
+        input = input.to('cuda')
+        target = target.to('cuda')
+
+        # target = target.cuda(non_blocking=True)
         input_var = torch.autograd.Variable(input, volatile=True)
         target_var = torch.autograd.Variable(target, volatile=True)
 

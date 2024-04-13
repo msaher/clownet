@@ -37,7 +37,7 @@ iframe_args = {
     'no_accumulation': False,
     "lr_decay": 0.1,
     "weight_decay": 0.1,
-    "eval-freq": 5,
+    "eval_freq": 5,
     "workers": 1,
     "representation": 'iframes',
     "arch": "mobile"

@@ -52,7 +52,7 @@ class Clownet(nn.Module):
         self.fc_final = nn.Linear(feature_dim, num_class)
 
         if self._representation == 'mv':
-            self.data_bn = nn.BatchNorm2d(3) # changed this 2 --> 3
+            self.data_bn = nn.BatchNorm2d(2) # changed this 2 --> 3
         if self._representation == 'residual':
             self.data_bn = nn.BatchNorm2d(3)
 

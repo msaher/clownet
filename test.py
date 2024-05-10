@@ -89,9 +89,10 @@ def main(d):
       output.append((video_scores, label[0]))
       cnt_time = time.time() - proc_start_time
       if (i + 1) % 100 == 0:
-          print('video {} done, total {}/{}, average {} sec/video'.format(i, i+1,
+        print('video {} done, total {}/{}, average {} sec/video'.format(i, i+1,
                                                                           total_num,
                                                                           float(cnt_time) / (i+1)))
+        break
 
   video_pred = [np.argmax(x[0]) for x in output]
   video_labels = [x[1] for x in output]
@@ -110,7 +111,7 @@ def main(d):
       reorder_label = [None] * len(output)
       reorder_name = [None] * len(output)
 
-      for i in range(1):
+      for i in range(len(output)):
           idx = order_dict[name_list[i]]
           reorder_output[idx] = output[i]
           reorder_label[idx] = video_labels[i]

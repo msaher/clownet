@@ -7,7 +7,7 @@ import numpy as np
 import torch.nn.parallel
 import torch.optim
 import torchvision
-
+from tensorflow.keras.utils import pad_sequences
 from dataset import CoviarDataSet
 from model import Model
 from transforms import GroupCenterCrop
@@ -118,7 +118,8 @@ def main(d):
           reorder_name[idx] = name_list[i]
 
       # print(reorder_output, reorder_output.shape, reorder_label, reorder_label.shape)
-      np.savez(args.save_scores, scores=reorder_output, labels=reorder_label, names=reorder_name, dtype="object")
+       
+      np.savez(args.save_scores, scores=pad_sequences(reorder_output, value=-1).numpy(), labels=reorder_label, names=reorder_name, dtype="object")
 
 
 if __name__ == '__main__':

@@ -31,7 +31,7 @@ class Flatten(nn.Module):
 
 class Clownet(nn.Module):
     def __init__(self, num_class, num_segments, representation, base_model='mobile'):
-        super(Clownet, self).__init__()
+        super(Clownet).__init__()
         self._representation = representation
         self.num_segments = num_segments
 

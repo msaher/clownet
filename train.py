@@ -80,7 +80,7 @@ def main(d: dict):
         CoviarDataSet(
             args.data_root,
             args.data_name,
-            video_list=args.train_list, # TODO: saher change thisss
+            video_list=args.test_list,
             num_segments=args.num_segments,
             representation=args.representation,
             transform=torchvision.transforms.Compose([

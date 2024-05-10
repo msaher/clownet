@@ -110,13 +110,13 @@ def main(d):
       reorder_label = [None] * len(output)
       reorder_name = [None] * len(output)
 
-      for i in range(len(output)):
+      for i in range(1):
           idx = order_dict[name_list[i]]
           reorder_output[idx] = output[i]
           reorder_label[idx] = video_labels[i]
           reorder_name[idx] = name_list[i]
 
-      print(reorder_output, reorder_output.shape, reorder_label, reorder_label.shape)
+      # print(reorder_output, reorder_output.shape, reorder_label, reorder_label.shape)
       np.savez(args.save_scores, scores=reorder_output, labels=reorder_label, names=reorder_name, dtype="object")
 
 

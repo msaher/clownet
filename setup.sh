@@ -1,6 +1,6 @@
 #!/bin/sh
 
-apt install python3-dev libavutil-dev libavformat-dev libswscale-dev
+apt --assume-yes install python3-dev libavutil-dev libavformat-dev libswscale-dev unrar
 pip install timm
 
 

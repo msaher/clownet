@@ -14,7 +14,7 @@ from transforms import GroupCenterCrop
 from transforms import GroupOverSample
 from transforms import GroupScale
 from utils import ArgsObject
-
+from models import Clownet
 
 
 def main(d):
@@ -26,7 +26,7 @@ def main(d):
     num_class = 51
   else:
     raise ValueError('Unknown dataset '+args.data_name)
-  net = Model(num_class, args.test_segments, args.representation,
+  net = Clownet(num_class, args.test_segments, args.representation,
               base_model=args.arch)
 
   checkpoint = torch.load(args.weights)

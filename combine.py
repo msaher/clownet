@@ -23,15 +23,15 @@ def main(d):
 
     with np.load(args.iframe) as iframe:
           with np.load(args.res) as residual:
-              n = len(mv['names'])
+              n = len(iframe['scores'])
 
-              i_score = np.array([score[0][0] for score in iframe['scores']])
+              i_score = np.array([score for score in iframe['scores']])
               # mv_score = np.array([score[0][0] for score in mv['scores']])
-              res_score = np.array([score[0][0] for score in residual['scores']])
+              res_score = np.array([score for score in residual['scores']])
 
-              i_label = np.array([score[1] for score in iframe['scores']])
+              i_label = np.array([score for score in iframe['labels']])
               # mv_label = np.array([score[1] for score in mv['scores']])
-              res_label = np.array([score[1] for score in residual['scores']])
+              res_label = np.array([score for score in residual['labels']])
               assert np.alltrue(i_label == mv_label) and np.alltrue(i_label == res_label)
 
               combined_score = i_score * args.wi + res_score * args.wr

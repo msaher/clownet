@@ -4,13 +4,13 @@ from torch import nn
 import torchvision
 import torch
 import numpy as np
-from mobileformer.mobile_former import mobile_former_26m
+from mobileformer.mobile_former import mobile_former_151m
 import torchvision
 from pycoviar.transforms import GroupRandomHorizontalFlip
 from pycoviar.transforms import GroupMultiScaleCrop
 
 # loading the mobile former pretrained net for embedding images
-mobile = mobile_former_26m(pretrained=False)
+mobile = mobile_former_151m(pretrained=False)
 
 state = torch.load("/kaggle/input/mobile-former-151m/mobile-former-151m.pth.tar", map_location=torch.device('cuda'))['state_dict']
 

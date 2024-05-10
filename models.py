@@ -56,6 +56,9 @@ class Clownet(nn.Module):
         if self._representation == 'residual':
             self.data_bn = nn.BatchNorm2d(3)
 
+    def unfreeze_base_model(self):
+        for param in self.base_model.parameters():
+            param.requires_grad = True
 
     def _prepare_base_model(self, base_model):
 

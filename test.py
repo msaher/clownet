@@ -92,7 +92,7 @@ def main(d):
         print('video {} done, total {}/{}, average {} sec/video'.format(i, i+1,
                                                                           total_num,
                                                                           float(cnt_time) / (i+1)))
-        break
+      
 
   video_pred = [np.argmax(x[0]) for x in output]
   video_labels = [x[1] for x in output]

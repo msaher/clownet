@@ -116,7 +116,8 @@ def main(d):
           reorder_label[idx] = video_labels[i]
           reorder_name[idx] = name_list[i]
 
-      np.savez(args.save_scores, scores=reorder_output, labels=reorder_label, names=reorder_name)
+      print(reorder_output, reorder_output.shape, reorder_label, reorder_label.shape)
+      np.savez(args.save_scores, scores=reorder_output, labels=reorder_label, names=reorder_name, dtype="object")
 
 
 if __name__ == '__main__':

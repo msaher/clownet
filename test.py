@@ -15,16 +15,17 @@ from transforms import GroupOverSample
 from transforms import GroupScale
 from utils import ArgsObject
 
-if args.data_name == 'ucf101':
-  num_class = 101
-elif args.data_name == 'hmdb51':
-  num_class = 51
-else:
-  raise ValueError('Unknown dataset '+args.data_name)
+
 
 def main(d):
 
   args = ArgsObject(d)
+  if args.data_name == 'ucf101':
+    num_class = 101
+  elif args.data_name == 'hmdb51':
+    num_class = 51
+  else:
+    raise ValueError('Unknown dataset '+args.data_name)
   net = Model(num_class, args.test_segments, args.representation,
               base_model=args.arch)
 

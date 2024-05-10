@@ -18,9 +18,9 @@ mobile.load_state_dict(state)
 mobile.to(torch.device('cuda'))
 
 
-# freezing the params
-for param in mobile.parameters():
-    param.requires_grad = False
+# # freezing the params
+# for param in mobile.parameters():
+#     param.requires_grad = False
 
 class Flatten(nn.Module):
     def __init__(self):

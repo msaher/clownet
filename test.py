@@ -76,7 +76,7 @@ def main(d):
   labels =[]
 
   def forward_video(data):
-      input_var = torch.autograd.Variable(data, volatile=True)
+      input_var = torch.autograd.Variable(data, volatile=True).to('cuda')
       scores = net(input_var)
       scores = scores.view((-1, args.test_segments * args.test_crops) + scores.size()[1:])
       scores = torch.mean(scores, dim=1)

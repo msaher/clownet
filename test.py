@@ -120,7 +120,7 @@ def main(d):
           reorder_label[idx] = video_labels[i]
           reorder_name[idx] = name_list[i]
 
-  np.savez(args.save_scores, scores=predictions, labels=reorder_label, names=reorder_name)
+  np.savez(args.save_scores, scores=reorder_output, labels=reorder_label, names=reorder_name)
 
 
 

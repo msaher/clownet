@@ -65,7 +65,8 @@ def main(d):
   else:
       devices = list(range(args.workers))
 
-  net = torch.nn.DataParallel(net.cuda(devices[0]), device_ids=devices)
+  # net = torch.nn.DataParallel(net.cuda(devices[0]), device_ids=devices)
+  net.to('cuda:0')
   net.eval()
 
   data_gen = enumerate(data_loader)

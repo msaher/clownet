@@ -12,10 +12,10 @@ from pycoviar.transforms import GroupMultiScaleCrop
 # loading the mobile former pretrained net for embedding images
 mobile = mobile_former_508m(pretrained=False)
 
-state = torch.load("/kaggle/input/mobileformer-508/mobile-former-508m.pth.tar", map_location=torch.device('cuda'))['state_dict']
+state = torch.load("/kaggle/input/mobileformer-508/mobile-former-508m.pth.tar", map_location=torch.device('cpu'))['state_dict']
 
 mobile.load_state_dict(state)
-mobile.to(torch.device('cuda'))
+mobile.to(torch.device('cpu'))
 
 
 # freezing the params

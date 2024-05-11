@@ -58,7 +58,7 @@ def main(d):
           accumulate=(not args.no_accumulation),
           ),
       batch_size=1, shuffle=False,
-      num_workers=args.workers * 2, pin_memory=True)
+      num_workers=args.workers * 2, pin_memory=False)
 
   if args.gpus is not None:
       devices = [args.gpus[i] for i in range(args.workers)]

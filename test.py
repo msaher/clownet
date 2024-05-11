@@ -71,7 +71,8 @@ def main(d):
   data_gen = enumerate(data_loader)
 
   total_num = len(data_loader.dataset)
-  output = []
+  predictions = []
+  labels =[]
 
   def forward_video(data):
       input_var = torch.autograd.Variable(data, volatile=True)
@@ -86,20 +87,21 @@ def main(d):
 
   for i, (data, label) in data_gen:
       video_scores = forward_video(data)
-      output.append((video_scores, label[0]))
+      predictions.append(video_scores)
+      labels.append(label[0])
       cnt_time = time.time() - proc_start_time
       if (i + 1) % 100 == 0:
-        print('video {} done, total {}/{}, average {} sec/video'.format(i, i+1,
-                                                                          total_num,
-                                                                          float(cnt_time) / (i+1)))
-      
+          print('video {} done, total {}/{}, average {} sec/video'.format(i, i+1,
+                                                                        total_num,
+                                                                        float(cnt_time) / (i+1)))
 
-  video_pred = [np.argmax(x[0]) for x in output]
-  video_labels = [x[1] for x in output]
+
+  video_pred = [np.argmax(x) for x in predictions]
+  video_labels = labels
 
   print('Accuracy {:.02f}% ({})'.format(
-      float(np.sum(np.array(video_pred) == np.array(video_labels))) / len(video_pred) * 100.0,
-      len(video_pred)))
+    float(np.sum(np.array(video_pred) == np.array(video_labels))) / len(video_pred) * 100.0,
+    len(video_pred)))
 
 
   if args.save_scores is not None:
@@ -107,19 +109,18 @@ def main(d):
       name_list = [x.strip().split()[0] for x in open(args.test_list)]
       order_dict = {e:i for i, e in enumerate(sorted(name_list))}
 
-      reorder_output = [None] * len(output)
-      reorder_label = [None] * len(output)
-      reorder_name = [None] * len(output)
+      reorder_output = [None] * len(predictions)
+      reorder_label = [None] * len(predictions)
+      reorder_name = [None] * len(predictions)
 
-      for i in range(len(output)):
+      for i in range(len(predictions)):
           idx = order_dict[name_list[i]]
-          reorder_output[idx] = output[i]
+          reorder_output[idx] = predictions[i]
           reorder_label[idx] = video_labels[i]
           reorder_name[idx] = name_list[i]
 
-      # print(reorder_output, reorder_output.shape, reorder_label, reorder_label.shape)
-       
-      np.savez(args.save_scores, scores=pad_sequences(reorder_output, value=-1).numpy(), labels=reorder_label, names=reorder_name, dtype="object")
+  np.savez(args.save_scores, scores=predictions, labels=reorder_label, names=reorder_name)
+
 
 
 if __name__ == '__main__':

@@ -32,7 +32,7 @@ def main(d):
   checkpoint = torch.load(args.weights)
   print("model epoch {} best prec@1: {}".format(checkpoint['epoch'], checkpoint['best_prec1']))
 
-  net.load_state_dict(checkpoint['state_dict'])
+  net.load_state_dict(checkpoint['state_dict']. map_location=torch.device('cpu'))
 
   if args.test_crops == 1:
       cropping = torchvision.transforms.Compose([
@@ -65,7 +65,7 @@ def main(d):
   else:
       devices = list(range(args.workers))
 
-  net = torch.nn.DataParallel(net.cuda(devices[0]), device_ids=devices)
+  # net = torch.nn.DataParallel(net.cuda(devices[0]), device_ids=devices)
   # net.to('cuda:0')
   net.eval()
 

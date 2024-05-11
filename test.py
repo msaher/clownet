@@ -57,7 +57,7 @@ def main(d):
           is_train=False,
           accumulate=(not args.no_accumulation),
           ),
-      batch_size=1, shuffle=False,
+      batch_size=args.batch_size, shuffle=False,
       num_workers=1, pin_memory=False)
 
   if args.gpus is not None:

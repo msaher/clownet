@@ -29,7 +29,7 @@ def main(d):
   net = Clownet(num_class, args.test_segments, args.representation,
               base_model=args.arch)
 
-  checkpoint = torch.load(args.weights, map_location=torch.device('cpu'))
+  checkpoint = torch.load(args.weights, map_location=torch.device('cuda'))
   print("model epoch {} best prec@1: {}".format(checkpoint['epoch'], checkpoint['best_prec1']))
 
   net.load_state_dict(checkpoint['state_dict'])
@@ -76,7 +76,7 @@ def main(d):
   labels =[]
 
   def forward_video(data):
-      input_var = torch.autograd.Variable(data, volatile=True).to('cpu')
+      input_var = torch.autograd.Variable(data, volatile=True).to('gpu')
       scores = net(input_var)
       scores = scores.view((-1, args.test_segments * args.test_crops) + scores.size()[1:])
       scores = torch.mean(scores, dim=1)

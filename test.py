@@ -81,7 +81,7 @@ def main(d):
         scores = net(input_var)
         scores = scores.view((-1, args.test_segments * args.test_crops) + scores.size()[1:])
         scores = torch.mean(scores, dim=1)
-        del input_vat
+        del input_var
         gc.collect()
         return scores.data.detach().cpu().numpy().copy()
 

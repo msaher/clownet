@@ -1,4 +1,4 @@
-TE"""Run testing given a trained model."""
+"""Run testing given a trained model."""
 
 import argparse
 import time

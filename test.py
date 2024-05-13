@@ -92,6 +92,7 @@ def main(d):
   for i, (data, label) in data_gen:
       video_scores = forward_video(data)
       predictions.append(video_scores)
+    print(f'FORWARDED VID # {i}')
       labels.append(label[0])
       cnt_time = time.time() - proc_start_time
       if (i + 1) % 100 == 0:

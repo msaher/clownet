@@ -77,7 +77,7 @@ def main(d):
 
   def forward_video(data):
     with torch.no_grad():
-        input_var = torch.autograd.Variable(data).cuda(non_blocking=True)
+        input_var = torch.tensor(data).cuda()
         scores = net(input_var)
         scores = scores.view((-1, args.test_segments * args.test_crops) + scores.size()[1:])
         scores = torch.mean(scores, dim=1)

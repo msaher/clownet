@@ -83,7 +83,7 @@ def main(d):
         scores = torch.mean(scores, dim=1)
         del input_vat
         gc.collect()
-        return scores.data.cpu().numpy().copy()
+        return scores.data.detach().cpu().numpy().copy()
 
 
   proc_start_time = time.time()

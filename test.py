@@ -58,7 +58,7 @@ def main(d):
           accumulate=(not args.no_accumulation),
           ),
       batch_size=args.batch_size, shuffle=False,
-      num_workers=1, pin_memory=False)
+      num_workers=1, pin_memory=True)
 
   if args.gpus is not None:
       devices = [args.gpus[i] for i in range(args.workers)]
@@ -76,11 +76,12 @@ def main(d):
   labels =[]
 
   def forward_video(data):
-      input_var = torch.autograd.Variable(data, volatile=True).to('cuda')
-      scores = net(input_var)
-      scores = scores.view((-1, args.test_segments * args.test_crops) + scores.size()[1:])
-      scores = torch.mean(scores, dim=1)
-      return scores.data.cpu().numpy().copy()
+    with torch.no_grad():
+        input_var = torch.autograd.Variable(data).cuda(non_blocking=True)
+        scores = net(input_var)
+        scores = scores.view((-1, args.test_segments * args.test_crops) + scores.size()[1:])
+        scores = torch.mean(scores, dim=1)
+        return scores.data.cpu().numpy().copy()
 
 
   proc_start_time = time.time()

@@ -15,7 +15,7 @@ from transforms import GroupOverSample
 from transforms import GroupScale
 from utils import ArgsObject
 from models import Clownet
-
+import gc
 
 def main(d):
 
@@ -81,6 +81,8 @@ def main(d):
         scores = net(input_var)
         scores = scores.view((-1, args.test_segments * args.test_crops) + scores.size()[1:])
         scores = torch.mean(scores, dim=1)
+        del input_vat
+        gc.collect()
         return scores.data.cpu().numpy().copy()
 
 

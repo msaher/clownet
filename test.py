@@ -75,52 +75,52 @@ def main(d):
   predictions = []
   labels =[]
 
-  # def forward_video(data):
-  #     input_var = torch.autograd.Variable(data, volatile=True).to('cuda')
-  #     scores = net(input_var)
-  #     scores = scores.view((-1, args.test_segments * args.test_crops) + scores.size()[1:])
-  #     scores = torch.mean(scores, dim=1)
-  #     return scores.data.cpu().numpy().copy()
+  def forward_video(data):
+      input_var = torch.autograd.Variable(data, volatile=True).to('cuda')
+      scores = net(input_var)
+      scores = scores.view((-1, args.test_segments * args.test_crops) + scores.size()[1:])
+      scores = torch.mean(scores, dim=1)
+      return scores.data.cpu().numpy().copy()
 
 
-  # proc_start_time = time.time()
+  proc_start_time = time.time()
 
 
-  # for i, (data, label) in data_gen:
-  #     video_scores = forward_video(data)
-  #     predictions.append(video_scores)
-  #     labels.append(label[0])
-  #     cnt_time = time.time() - proc_start_time
-  #     if (i + 1) % 100 == 0:
-  #         print('video {} done, total {}/{}, average {} sec/video'.format(i, i+1,
-  #                                                                       total_num,
-  #                                                                       float(cnt_time) / (i+1)))
+  for i, (data, label) in data_gen:
+      video_scores = forward_video(data)
+      predictions.append(video_scores)
+      labels.append(label[0])
+      cnt_time = time.time() - proc_start_time
+      if (i + 1) % 100 == 0:
+          print('video {} done, total {}/{}, average {} sec/video'.format(i, i+1,
+                                                                        total_num,
+                                                                        float(cnt_time) / (i+1)))
 
 
-  # video_pred = [np.argmax(x) for x in predictions]
-  # video_labels = labels
+  video_pred = [np.argmax(x) for x in predictions]
+  video_labels = labels
 
-  # print('Accuracy {:.02f}% ({})'.format(
-  #   float(np.sum(np.array(video_pred) == np.array(video_labels))) / len(video_pred) * 100.0,
-  #   len(video_pred)))
+  print('Accuracy {:.02f}% ({})'.format(
+    float(np.sum(np.array(video_pred) == np.array(video_labels))) / len(video_pred) * 100.0,
+    len(video_pred)))
 
 
-  # if args.save_scores is not None:
+  if args.save_scores is not None:
 
-  #     name_list = [x.strip().split()[0] for x in open(args.test_list)]
-  #     order_dict = {e:i for i, e in enumerate(sorted(name_list))}
+      name_list = [x.strip().split()[0] for x in open(args.test_list)]
+      order_dict = {e:i for i, e in enumerate(sorted(name_list))}
 
-  #     reorder_output = [None] * len(predictions)
-  #     reorder_label = [None] * len(predictions)
-  #     reorder_name = [None] * len(predictions)
+      reorder_output = [None] * len(predictions)
+      reorder_label = [None] * len(predictions)
+      reorder_name = [None] * len(predictions)
 
-  #     for i in range(len(predictions)):
-  #         idx = order_dict[name_list[i]]
-  #         reorder_output[idx] = predictions[i]
-  #         reorder_label[idx] = video_labels[i]
-  #         reorder_name[idx] = name_list[i]
+      for i in range(len(predictions)):
+          idx = order_dict[name_list[i]]
+          reorder_output[idx] = predictions[i]
+          reorder_label[idx] = video_labels[i]
+          reorder_name[idx] = name_list[i]
 
-  # np.savez(args.save_scores, scores=reorder_output, labels=reorder_label, names=reorder_name)
+  np.savez(args.save_scores, scores=reorder_output, labels=reorder_label, names=reorder_name)
 
 
 
